@@ -11,7 +11,7 @@ its own rules that the object-table must follow, and most often such tables are
 modified (infected) with libraries, receiving various methods from them, without
 which the table can not be considered object at all.
 
-So I decided to write a library that treats absolutely any table as an object.
+So I decided to write a library that treats absolutely any table as object.
 It does not matter where this table came from, how it was created or what is
 inside it. In fact, this library is just a set of auxiliary functions for
 working with any tables in OOP style.
