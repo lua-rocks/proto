@@ -2,7 +2,7 @@
 -- luacheck: no global
 
 package = "proto"
-version = "0.1.0-0"
+version = "0.1.0-1"
 source = {
    url = "git+ssh://git@github.com/lua-rocks/proto.git"
 }
@@ -13,7 +13,6 @@ description = {
 build = {
    type = "builtin",
    modules = {
-      example = "example.lua",
       proto = "proto.lua"
    }
 }
