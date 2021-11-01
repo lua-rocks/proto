@@ -46,9 +46,9 @@ different from any other function and has no connection to a library.
 
 We have only 4 simple but powerful tools at our disposal:
 
-+ `proto.link(t, ...)` or abbreviated to `proto(t, ...)`:
++ `proto.link(t, ...)` or `proto(t, ...)`:
   multiple inheritance (linking tables via `__index`)
-+ `proto.iter(t)` or abbreviated to `proto(t)`:
++ `proto.iter(t)` or `proto(t)`:
   iterator to try complex tables through a for loop
 + `proto.get_tables(t)`: get an array of all linked tables
 + `proto.merge_meta(t)`: metatable inheritance
