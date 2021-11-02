@@ -138,7 +138,7 @@ end
 ---```lua
 ---for k, v, t in proto(x) do
 ---  print(tostring(x) ..
----    ' has slot ' .. k ..
+---    ' has slot ' .. tostring(k) ..
 ---    ' from table ' .. tostring(t) ..
 ---    ' and its value is ' .. tostring(v))
 ---end

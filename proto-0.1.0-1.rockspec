@@ -4,15 +4,15 @@
 package = "proto"
 version = "0.1.0-1"
 source = {
-   url = "git+ssh://git@github.com/lua-rocks/proto.git"
+  url = "git+ssh://git@github.com/lua-rocks/proto.git"
 }
 description = {
-   homepage = "https://github.com/lua-rocks/proto",
-   license = "MIT"
+  homepage = "https://github.com/lua-rocks/proto",
+  license = "MIT"
 }
 build = {
-   type = "builtin",
-   modules = {
-      proto = "proto.lua"
-   }
+  type = "builtin",
+  modules = {
+    proto = "proto.lua"
+  }
 }

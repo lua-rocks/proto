@@ -1,4 +1,4 @@
-# `PRÖTØ` - the simplest implementation of a prototype ÖØP in Lua
+# `PRÖTØ` - the simplest prototype ÖØP in Lua
 
 ## Why?
 
