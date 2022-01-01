@@ -61,7 +61,7 @@ local proto = require "proto"
 local o = {}
 
 function o:init(conf)
-  local super = proto.get_tables(self)[2]
+  local super = proto.get_tables(self, 2)[2]
   super.init(self, conf)
   self.conf = conf or self.conf
 end

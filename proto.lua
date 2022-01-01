@@ -105,13 +105,17 @@ end
 ---(index functions that return an array with indexes
 ---when called without arguments).
 ---@param t table
----@return table[] all tables
-function proto.get_tables(t)
+---@param limit? integer don't search deeper
+---@return table[] tables
+function proto.get_tables(t, limit)
   local result = {}
+  local counter = 0
   local function recursive_extract(index)
     local index_type = type(index)
     if index_type == 'table' then
-      table.insert(result, index)
+      counter = counter + 1
+      result[counter] = index
+      if counter == limit then return end
       local mt = getmetatable(index)
       if mt then
         local next_mt_index = mt.__index

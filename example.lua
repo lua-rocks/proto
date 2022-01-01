@@ -93,6 +93,12 @@ assert(cat1_hierarchy[2] == Cat)
 assert(cat1_hierarchy[3] == Mammal)
 assert(cat1_hierarchy[4] == Animal)
 
+cat1_hierarchy = proto.get_tables(cat1, 2) -- stop at 2 (faster)
+assert(cat1_hierarchy[1] == cat1)
+assert(cat1_hierarchy[2] == Cat)
+assert(cat1_hierarchy[3] == nil)
+assert(cat1_hierarchy[4] == nil)
+
 
 -- `proto(t)` (with **ONE** argument) is shortcut for `proto.iter(t)`
 local function dump(x)
