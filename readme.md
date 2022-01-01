@@ -36,11 +36,38 @@ For example: the `__index` metamethod is more correctly called **metaslot**,
 because it can be both a function and a table.
 
 Our tables have no library garbage, so they don't even have constructor
-functions! Generally, constructors are usually not needed in prototype
-programming. You just create a table, link it with others, and then do whatever
-you want with it throughout your code. If you want to use a constructor, you
-can, but remember that your constructor is an ordinary function that's no
-different from any other function and has no connection to a library.
+functions! Generally, constructors are not needed in prototype programming.
+
+Instead of constructors, which creates and initializes the class instance,
+and then returns it:
+
+```lua
+local Object = require "some.class-based.oop.library"
+
+function Object:new(conf)
+  self.super.init(self, conf)
+  self.conf = conf or self.conf
+  return self
+end
+
+local o = Object:new(conf)
+```
+
+I recommend just create empty table and initialize it:
+
+```lua
+local proto = require "proto"
+
+local o = {}
+
+function o:init(conf)
+  local super = proto.get_tables(self)[2]
+  super.init(self, conf)
+  self.conf = conf or self.conf
+end
+
+o:init(conf)
+```
 
 ## Arsenal
 

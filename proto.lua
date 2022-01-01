@@ -108,7 +108,7 @@ end
 ---@return table[] all tables
 function proto.get_tables(t)
   local result = {}
-  local function recursve_extract(index)
+  local function recursive_extract(index)
     local index_type = type(index)
     if index_type == 'table' then
       table.insert(result, index)
@@ -116,17 +116,17 @@ function proto.get_tables(t)
       if mt then
         local next_mt_index = mt.__index
         if next_mt_index then
-          recursve_extract(next_mt_index)
+          recursive_extract(next_mt_index)
         end
       end
     elseif index_type == 'function' then
       local index_array = index()
       for _, v in ipairs(index_array) do
-        recursve_extract(v)
+        recursive_extract(v)
       end
     end
   end
-  recursve_extract(t)
+  recursive_extract(t)
   return result
 end
 

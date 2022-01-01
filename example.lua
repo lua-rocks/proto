@@ -55,7 +55,7 @@ local Cat = proto({
 }, Mammal, 'Cat')
 
 
-function Cat:born(name) -- Constructor.
+function Cat:born(name) -- Simplest initializer.
   self.name = name or self.name
 end
 
