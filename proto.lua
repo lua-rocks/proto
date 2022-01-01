@@ -171,6 +171,6 @@ return setmetatable(proto, {
     return proto.link(...)
   end,
   __tostring = function ()
-    return 'PRÖTØ v0.1.0'
+    return 'PRÖTØ v0.1.1'
   end
 })
