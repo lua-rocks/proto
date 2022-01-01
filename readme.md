@@ -67,6 +67,9 @@ function o:init(conf)
 end
 
 o:init(conf)
+
+local another_o = proto({}, o)
+another_o:init(conf)
 ```
 
 ## Arsenal
