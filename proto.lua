@@ -1,7 +1,3 @@
--- local inspect = require 'inspect'
--- local function dump(...) print(inspect(...)) end
-
-
 ---# `PRÖTØ`
 ---## The simplest implementation of a prototype ÖØP in Lua
 ---**Memoire:** when using variadic arguments in any functions from this
@@ -9,7 +5,6 @@
 ---The variables on the left have a higher priority.
 ---@class lib.proto
 local proto = {}
-
 
 ---## `__index` combining
 ---Accepts many `__index` metaslots and returns universal one.
@@ -24,7 +19,9 @@ local proto = {}
 ---@return table|function combined `__index`
 local function mix_index(...)
   local args_num = select("#", ...)
-  if args_num < 2 then return ... end
+  if args_num < 2 then
+    return ...
+  end
 
   local indexes = {} ---@type function[]
   local last = 0
@@ -33,26 +30,31 @@ local function mix_index(...)
     if index then
       local t = type(index)
       last = last + 1
-      if t == 'table' then
+      if t == "table" then
         indexes[last] = function(_, key)
-          if key == nil then return { index } end
+          if key == nil then
+            return { index }
+          end
           return index[key]
         end
-      elseif t == 'function' then
+      elseif t == "function" then
         indexes[last] = index
       end
     end
   end
 
-  return function (_, key)
-    if key == nil then return indexes end
+  return function(_, key)
+    if key == nil then
+      return indexes
+    end
     for _, index in ipairs(indexes) do
       local result = index(_, key)
-      if result ~= nil then return result end
+      if result ~= nil then
+        return result
+      end
     end
   end
 end
-
 
 ---## Multiple inheritance (fast)
 ---Links a table via `__index` with all tables passed in arguments.
@@ -68,12 +70,13 @@ function proto.link(t, ...)
   local last = select(-1, ...)
   local mt = getmetatable(t) or {}
   mt.__index = mix_index(mt.__index, ...)
-  if type(last) == 'string' then
-    mt.__tostring = function () return last end
+  if type(last) == "string" then
+    mt.__tostring = function()
+      return last
+    end
   end
   return setmetatable(t, mt)
 end
-
 
 ---## Metadata merging
 ---Modifies the metatable of the passed table, combining all metaslots in it:
@@ -82,7 +85,9 @@ end
 ---@param t table
 function proto.merge_meta(t)
   local t_mt = getmetatable(t)
-  if not t_mt or not t_mt.__index then return end
+  if not t_mt or not t_mt.__index then
+    return
+  end
 
   local tables_array = proto.get_tables(t)
   for _, tbl in ipairs(tables_array) do
@@ -98,7 +103,6 @@ function proto.merge_meta(t)
   setmetatable(t, t_mt)
 end
 
-
 ---## Extracting relatives
 ---Gets all tables adhered to this table through `__index`
 ---in order, starting with itself. Supports combined indexes
@@ -112,10 +116,12 @@ function proto.get_tables(t, limit)
   local counter = 0
   local function recursive_extract(index)
     local index_type = type(index)
-    if index_type == 'table' then
+    if index_type == "table" then
       counter = counter + 1
       result[counter] = index
-      if counter == limit then return end
+      if counter == limit then
+        return
+      end
       local mt = getmetatable(index)
       if mt then
         local next_mt_index = mt.__index
@@ -123,7 +129,7 @@ function proto.get_tables(t, limit)
           recursive_extract(next_mt_index)
         end
       end
-    elseif index_type == 'function' then
+    elseif index_type == "function" then
       local index_array = index()
       for _, v in ipairs(index_array) do
         recursive_extract(v)
@@ -133,7 +139,6 @@ function proto.get_tables(t, limit)
   recursive_extract(t)
   return result
 end
-
 
 ---## Slot looping
 ---Iterator to enumerate tables with `__index` metaslots
@@ -150,7 +155,7 @@ end
 function proto.iter(t)
   local passed = {}
   local array = proto.get_tables(t)
-  return function ()
+  return function()
     for _, sub_t in ipairs(array) do
       for slot_key, slot_val in pairs(sub_t) do
         if not passed[slot_key] then
@@ -162,15 +167,14 @@ function proto.iter(t)
   end
 end
 
-
 return setmetatable(proto, {
-  __call = function (_, ...)
+  __call = function(_, ...)
     if select("#", ...) == 1 then
       return proto.iter(...)
     end
     return proto.link(...)
   end,
-  __tostring = function ()
-    return 'PRÖTØ v0.1.1'
-  end
+  __tostring = function()
+    return "PRÖTØ v0.1.1"
+  end,
 })
