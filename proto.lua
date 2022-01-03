@@ -63,19 +63,20 @@ end
 ---
 ---Calling `proto()` with more than one argument will redirect to this function.
 ---@generic T
----@param t T a table that will link to all the other tables
----@vararg table set of any tables
+---@param t1 table a table that will link to all the other tables
+---@param t2 T first linked table
+---@vararg table other linked tables
 ---@return T result
-function proto.link(t, ...)
-  local last = select(-1, ...)
-  local mt = getmetatable(t) or {}
-  mt.__index = mix_index(mt.__index, ...)
+function proto.link(t1, t2, ...)
+  local last = select(-1, t2, ...)
+  local mt = getmetatable(t1) or {}
+  mt.__index = mix_index(mt.__index, t2, ...)
   if type(last) == "string" then
     mt.__tostring = function()
       return last
     end
   end
-  return setmetatable(t, mt)
+  return setmetatable(t1, mt)
 end
 
 ---## Metadata merging
@@ -175,6 +176,6 @@ return setmetatable(proto, {
     return proto.link(...)
   end,
   __tostring = function()
-    return "PRÖTØ v0.1.1"
+    return "PRÖTØ v0.1.2"
   end,
 })
