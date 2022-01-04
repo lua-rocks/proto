@@ -16,6 +16,13 @@ It does not matter where this table came from, how it was created or what is
 inside it. In fact, this library is just a set of auxiliary functions for
 working with any tables in OOP style.
 
+## Installation
+
+`luarocks install proto`
+
+Or download/clone the lua file/repository into your project,
+To have smart tips in [VSCodium][2].
+
 ## General principles and terminology
 
 Note that PRÖTØ uses a programming paradigm called [prototype programming][1].
@@ -73,12 +80,10 @@ We have only 4 simple but powerful tools at our disposal:
 For detailed API see [proto.lua](proto.lua),
 examples in [example.lua](example.lua).
 
-## Installation
-
-`luarocks install proto`
-
-Or download/clone the lua file/repository into your project,
-To have smart tips in [VSCodium][2].
+The last thing you should notice is that `proto.link(t, ...)`
+and `proto(t, ...)` are not functionally different, but if you are using
+language server such as `sumneko.lua`, then the longer variant is better
+for you, because this server is not smart enough (yet) to parse metatables.
 
 ## Recommended extensions for VSCodium
 
