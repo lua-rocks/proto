@@ -44,8 +44,10 @@ local proto = require "proto"
 local o = {}
 
 function o:init(conf)
+  -- This way we can init inherited objects:
   local super = proto.get_tables(self, 2)[2]
   super.init(self, conf)
+
   self.conf = conf or self.conf
   return self
 end
