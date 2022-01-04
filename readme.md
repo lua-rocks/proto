@@ -36,7 +36,7 @@ For example: the `__index` metamethod is more correctly called **metaslot**,
 because it can be both a function and a table.
 
 Our tables have no library garbage, so they don't even have constructor
-functions, but you can create your own (independent):
+functions, but you can create your own:
 
 ```lua
 local proto = require "proto"
@@ -48,14 +48,14 @@ function o:init(conf)
   local super = proto.get_tables(self, 2)[2]
   super.init(self, conf)
 
-  self.conf = conf or self.conf
+  self.conf = conf
   return self
 end
 
--- For one instance we can simply init our table and start using it
+-- For one instance we can simply init our table and start using it.
 o:init(conf)
 
--- For many instances we need to use library
+-- For many instances we need to use library.
 local another_o = proto({}, o):init(conf)
 ```
 
