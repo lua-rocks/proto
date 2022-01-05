@@ -16,7 +16,7 @@ local proto = {}
 ---
 ---Incorrect types are skipped without causing errors.
 ---@vararg table|function `__index` set
----@return table|function combined `__index`
+---@return table|function combined__index
 local function mix_index(...)
   local args_num = select("#", ...)
   if args_num < 2 then
@@ -131,9 +131,11 @@ function proto.get_tables(t, limit)
         end
       end
     elseif index_type == "function" then
-      local index_array = index()
-      for _, v in ipairs(index_array) do
-        recursive_extract(v)
+      local success, index_array = pcall(index)
+      if success then
+        for _, v in ipairs(index_array) do
+          recursive_extract(v)
+        end
       end
     end
   end
