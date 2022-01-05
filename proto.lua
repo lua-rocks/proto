@@ -43,12 +43,12 @@ local function mix_index(...)
     end
   end
 
-  return function(_, key)
+  return function(self, key)
     if key == nil then
       return indexes
     end
     for _, index in ipairs(indexes) do
-      local result = index(_, key)
+      local result = index(self, key)
       if result ~= nil then
         return result
       end
