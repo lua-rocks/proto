@@ -14,6 +14,6 @@ which will also simplify the `get_tables` method to a single command.
 (__index called with no arguments) is a dirty game too.
 
 This is a big problem, because if I allow myself to expand the table, then this
-library, although faster, but much less convenient than the previous one. In
-that case, it would be better for me to optimize Object than to make a mutant
-from Proto.
+library will be, although faster, but still much less convenient than the
+previous one. In that case, it would be better for me to optimize Object than to
+make a mutant from Proto.
