@@ -43,6 +43,8 @@ local Size = proto.link({}, Vector2)
 local pos = proto.link({}, Pos)
 proto.merge_meta(pos)
 
+Pos[1] = 1 -- FIXME: This is not a solution!
+
 local size = proto.link({ 10, 20 }, Size)
 
 pos:init(1, 2)

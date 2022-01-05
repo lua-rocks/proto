@@ -132,7 +132,7 @@ function proto.get_tables(t, limit)
       end
     elseif index_type == "function" then
       local success, index_array = pcall(index)
-      if success then
+      if success and index_array then
         for _, v in ipairs(index_array) do
           recursive_extract(v)
         end
