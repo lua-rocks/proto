@@ -62,11 +62,11 @@ end
 ---by passing **string** at the end.
 ---
 ---Calling `proto()` with more than one argument will redirect to this function.
----@generic T
----@param t1 table a table that will link to all the other tables
----@param t2 T first linked table
+---@generic T1, T2
+---@param t1 T1 a table that will link to all the other tables
+---@param t2 T2 first linked table
 ---@vararg table other linked tables
----@return T result
+---@return T1|T2 result
 function proto.link(t1, t2, ...)
   local last = select(-1, t2, ...)
   local mt = getmetatable(t1) or {}
