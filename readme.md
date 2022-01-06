@@ -1,5 +1,15 @@
 # `PRÖTØ` - the simplest prototype ÖØP in Lua
 
+## 🎉 BAD NEWS EVERYONE 🎉
+
+In the near future I intend to archive this repository and unarchive my old OOP
+library (Object), because implementing inheritance of `__index` metamethods is a
+very hard task that requires complete rethinking and rewriting. In Object all
+this has already been implemented and time-tested.
+
+In fact, about 90% of all lua's OOP libraries can't inherit `__index`, but for
+me personally it's an important feature so I can't just turn a blind eye to it.
+
 ## Why?
 
 It's no secret that there is a huge variety of different OOP libraries for Lua
