@@ -88,8 +88,4 @@ function proto.set_name(self, name)
   return self, mt
 end
 
-return setmetatable(proto, {
-  __tostring = function()
-    return "PRÖTØ v0.2.1"
-  end,
-})
+return proto.set_name(proto, "PRÖTØ v0.2.1")

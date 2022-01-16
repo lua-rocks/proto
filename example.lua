@@ -100,3 +100,5 @@ print("RIP, " .. cat1.name .. ".")
 for k, v, t in proto.slots(cat1) do
   print(k, v, t)
 end
+
+print(proto)
