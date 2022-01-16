@@ -80,11 +80,14 @@ end
 ---@return T
 ---@return table metatable
 function proto:set_name(name)
-  local mt = getmetatable(self) or {}
+  local mt = getmetatable(self)
+  if not mt then
+    mt = {}
+    setmetatable(self, mt)
+  end
   mt.__tostring = function()
     return name
   end
-  setmetatable(self, mt)
   return self, mt
 end
 
