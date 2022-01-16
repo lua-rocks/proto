@@ -26,7 +26,10 @@ function proto:copy()
   for key, value in proto.slots(self) do
     t[key] = value
   end
-  proto.set_name(t, tostring(self))
+  local mt = getmetatable(self)
+  if mt then
+    setmetatable(t, { __tostring = mt.__tostring })
+  end
   return t
 end
 
