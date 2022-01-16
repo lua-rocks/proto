@@ -68,7 +68,7 @@ function proto.slots(self, limit)
   return next_iter
 end
 
----Simple helper for getting __index
+---Simple helper for getting __index.
 ---@param self table
 ---@return table
 function proto.index(self)
