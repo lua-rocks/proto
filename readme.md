@@ -77,7 +77,7 @@ We have only 6 simple but powerful tools at our disposal:
 
 + Main:
   + `proto.link(self, t2, name)`: inheritance (linking tables via `__index`)
-  + `proto.copy(self)`: sometimes cloning copies is faster that building them
+  + `proto.copy(self)`: sometimes cloning copies is faster than building
 + Iterators:
   + `proto.parents(self, limit)`: for all linked tables
   + `proto.slots(self, limit)`: for all slots from self and linked tables
