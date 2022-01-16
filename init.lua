@@ -45,7 +45,7 @@ end
 ---Slots iterator.
 ---@param self table
 ---@param limit number
----@return fun(): table
+---@return fun(): any, any, table
 function proto.slots(self, limit)
   limit = limit or huge
   local counter = 0
