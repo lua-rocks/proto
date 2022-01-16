@@ -5,21 +5,16 @@ local huge = math.huge
 ---@class lib.proto
 local proto = {}
 
----Link T1 to T2 via `__index`.
+---Link T2 to T1 via `__index`.
 ---@generic T1:table, T2:table
 ---@param t1 T1
 ---@param t2 T2
 ---@param name? string
 ---@return T1|T2 result
 function proto.link(t1, t2, name)
-  local mt = getmetatable(t1) or {}
-  if type(name) == "string" then
-    mt.__tostring = function()
-      return name
-    end
-  end
+  local _, mt = proto.set_name(t1, name)
   mt.__index = t2
-  return setmetatable(t1, mt)
+  return t1
 end
 
 ---Parents iterator.
@@ -70,16 +65,31 @@ end
 
 ---Simple helper for getting __index.
 ---@param self table
----@return table
-function proto.index(self)
+---@return table?
+function proto.get_index(self)
   local mt = getmetatable(self)
   if mt then
     return mt.__index
   end
 end
 
+---Simple helper for setting __tostring.
+---@generic T: table
+---@param self T
+---@param name string
+---@return T
+---@return table metatable
+function proto.set_name(self, name)
+  local mt = getmetatable(self) or {}
+  mt.__tostring = function()
+    return name
+  end
+  setmetatable(self, mt)
+  return self, mt
+end
+
 return setmetatable(proto, {
   __tostring = function()
-    return "PRÖTØ v0.2.0"
+    return "PRÖTØ v0.2.1"
   end,
 })

@@ -58,8 +58,7 @@ local o = {}
 
 function o:init(conf)
   -- This way we can init inherited objects:
-  local super = proto.index(self)
-  super.init(self, conf)
+  proto.get_index(self).init(self, conf)
 
   self.conf = conf
   return self
@@ -74,12 +73,16 @@ local another_o = proto.link({}, o):init(conf)
 
 ## Arsenal
 
-We have only 4 simple but powerful tools at our disposal:
+We have only 5 simple but powerful tools at our disposal:
 
-+ `proto.link(t1, t2, name)`: simple inheritance (linking tables via `__index`)
-+ `proto.parents(self, limit)`: iterator for all linked tables
-+ `proto.slots(self, limit)`: iterator for all slots from self and linked tables
-+ `proto.index(self)`: simply get `__index`
++ Main:
+  + `proto.link(t1, t2, name)`: inheritance (linking tables via `__index`)
++ Iterators:
+  + `proto.parents(self, limit)`: for all linked tables
+  + `proto.slots(self, limit)`: for all slots from self and linked tables
++ Helpers:
+  + `proto.get_index(self)`: get `__index` metaslot
+  + `proto.set_name(self, name)`: set `__tostring` metaslot
 
 For detailed API see [init.lua](init.lua),
 examples in [example.lua](example.lua).

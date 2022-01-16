@@ -10,7 +10,7 @@ local proto = require("init")
 ---@field dead boolean
 ---@field legs number?
 ---@field paws number?
-local Animal = proto.link({ dead = false }, {}, "lib.example-animal")
+local Animal = proto.set_name({ dead = false }, "lib.example-animal")
 
 function Animal:can_breath()
   return not self.dead
