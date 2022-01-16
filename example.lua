@@ -1,20 +1,16 @@
-local proto = require("proto")
+local proto = require("init")
 
 -- Variables named with capital letters called
 -- "**prototypes**", not a "*classes*"! 😝
 --
--- `proto(...)` is shortcut for `proto.link(...)`
 -- Names at the end can be skipped. It's only for debugging.
---
 -- But when you call them in format `require.path-name`,
 -- debugging of your entire project becomes much more convenient!
 ---@class lib.example-animal
 ---@field dead boolean
 ---@field legs number?
 ---@field paws number?
-local Animal = proto({
-  dead = false,
-}, "Animal") -- "lib.example-animal" is better than "Animal" for debugging
+local Animal = proto.link({ dead = false }, {}, "lib.example-animal")
 
 function Animal:can_breath()
   return not self.dead
@@ -30,7 +26,7 @@ end
 
 ---@class lib.example-bird:lib.example-animal
 ---@field wings number?
-local Bird = proto({ wings = 2 }, Animal, "Bird")
+local Bird = proto.link({ wings = 2 }, Animal, "lib.example-bird")
 
 function Bird:can_fly()
   if not self.dead and (self.wings or 0) > 1 then
@@ -41,14 +37,14 @@ function Bird:can_fly()
 end
 
 ---@class lib.example-mammal:lib.example-animal
-local Mammal = proto({}, Animal, "Mammal")
+local Mammal = proto.link({}, Animal, "lib.example-mammal")
 
 ---@class lib.example-cat:lib.example-mammal
 ---@field tails number?
-local Cat = proto({
+local Cat = proto.link({
   paws = 4,
   tails = 1,
-}, Mammal, "Cat")
+}, Mammal, "lib.example-cat")
 
 function Cat:born(name) -- Simplest initializer.
   self.name = name or self.name
@@ -75,35 +71,24 @@ function Knife.hit(target)
 end
 
 ---@type lib.example-cat
-local cat1 = proto({}, Cat, "cat1")
+local cat1 = proto.link({}, Cat, "cat1")
 cat1:born("Tom")
 
-local cat1_hierarchy = proto.get_tables(cat1)
-assert(cat1_hierarchy[1] == cat1)
-assert(cat1_hierarchy[2] == Cat)
-assert(cat1_hierarchy[3] == Mammal)
-assert(cat1_hierarchy[4] == Animal)
-
-cat1_hierarchy = proto.get_tables(cat1, 2) -- stop at 2 (faster)
-assert(cat1_hierarchy[1] == cat1)
-assert(cat1_hierarchy[2] == Cat)
-assert(cat1_hierarchy[3] == nil)
-assert(cat1_hierarchy[4] == nil)
-
--- `proto(t)` (with **ONE** argument) is shortcut for `proto.iter(t)`
-local function dump(x)
-  for k, v, t in proto(x) do
-    print(
-      tostring(x)
-        .. " has slot "
-        .. k
-        .. " from table "
-        .. tostring(t)
-        .. " and its value is "
-        .. tostring(v)
-    )
-  end
+local cat1_hierarchy = {}
+for parent in proto.parents(cat1) do
+  table.insert(cat1_hierarchy, parent)
 end
+assert(cat1_hierarchy[1] == Cat)
+assert(cat1_hierarchy[2] == Mammal)
+assert(cat1_hierarchy[3] == Animal)
+
+cat1_hierarchy = {}
+for parent in proto.parents(cat1, 1) do -- don't search deeper than 1
+  table.insert(cat1_hierarchy, parent)
+end
+assert(cat1_hierarchy[1] == Cat)
+assert(cat1_hierarchy[2] == nil)
+assert(cat1_hierarchy[3] == nil)
 
 assert(cat1:can_walk() == true)
 Knife.hit(cat1)
@@ -112,31 +97,6 @@ Knife.hit(cat1)
 assert(cat1:can_breath() == false)
 print("RIP, " .. cat1.name .. ".")
 
----@class lib.example-penguin:lib.example-animal,lib.example-bird
----@field description string
-local Penguin = proto({
-  paws = 2,
-  description = "Penguin is complex Animal",
-  can_fly = function()
-    return false
-  end,
-}, Animal, nil, Bird, "Penguin") -- Nils are skipped!
-
----@type lib.example-penguin
-local peng1 = proto({ name = "Tux" }, Penguin, "peng1")
-
-assert(peng1.paws == 2)
-assert(peng1.wings == 2)
-
-dump(peng1)
-
--- Meta-merge test
-
-local Bird_mt = getmetatable(Bird)
-
-function Bird_mt:__call()
-  print(self.name .. " CALLED!")
+for k, v, t in proto.slots(cat1) do
+  print(k, v, t)
 end
-
-proto.merge_meta(peng1)
-peng1()

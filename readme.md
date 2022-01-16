@@ -1,16 +1,10 @@
 # `PRÖTØ` - the simplest prototype ÖØP in Lua
 
-## 🎉 BAD NEWS EVERYONE 🎉
+## 🎉 GOOD NEWS EVERYONE 🎉
 
-In the near future I intend to archive this repository and unarchive my old OOP
-library ([Öbject][]), because implementing inheritance of `__index` metamethods is a
-very hard task that requires complete rethinking and rewriting. In Object all
-this has already been implemented and time-tested.
+Metatables are not supported anymore! 😆
 
-In fact, about 90% of all lua's OOP libraries can't inherit `__index`, but for
-me personally it's an important feature so I can't just turn a blind eye to it.
-
-[Öbject]: https://github.com/lua-rocks/object
+SEE [NEWS.MD](news.md)
 
 ## Why?
 
@@ -64,7 +58,7 @@ local o = {}
 
 function o:init(conf)
   -- This way we can init inherited objects:
-  local super = proto.get_tables(self, 2)[2]
+  local super = proto.index(self)
   super.init(self, conf)
 
   self.conf = conf
@@ -75,19 +69,17 @@ end
 o:init(conf)
 
 -- For many instances we need to use library.
-local another_o = proto({}, o):init(conf)
+local another_o = proto.link({}, o):init(conf)
 ```
 
 ## Arsenal
 
 We have only 4 simple but powerful tools at our disposal:
 
-+ `proto.link(t, ...)` or `proto(t, ...)`:
-  multiple inheritance (linking tables via `__index`)
-+ `proto.iter(t)` or `proto(t)`:
-  iterator to try complex tables through a for loop
-+ `proto.get_tables(t)`: get an array of all linked tables
-+ `proto.merge_meta(t)`: metatable inheritance
++ `proto.link(t1, t2, name)`: simple inheritance (linking tables via `__index`)
++ `proto.parents(self, limit)`: iterator for all linked tables
++ `proto.slots(self, limit)`: iterator for all slots from self and linked tables
++ `proto.index(self)`: simply get __index
 
 For detailed API see [proto.lua](proto.lua),
 examples in [example.lua](example.lua).

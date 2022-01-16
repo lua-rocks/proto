@@ -1,4 +1,3 @@
----@diagnostic disable: lowercase-global
 -- luacheck: no global
 
 exclude_files = { "**/.**" }
