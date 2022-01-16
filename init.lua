@@ -107,4 +107,4 @@ function proto:set_name(name)
   return self, mt
 end
 
-return proto:set_name("PRÖTØ v0.2.1")
+return proto:set_name("PRÖTØ v0.2.2")
