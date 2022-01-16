@@ -76,7 +76,7 @@ local another_o = proto.link({}, o):init(conf)
 We have only 5 simple but powerful tools at our disposal:
 
 + Main:
-  + `proto.link(t1, t2, name)`: inheritance (linking tables via `__index`)
+  + `proto.link(self, t2, name)`: inheritance (linking tables via `__index`)
 + Iterators:
   + `proto.parents(self, limit)`: for all linked tables
   + `proto.slots(self, limit)`: for all slots from self and linked tables

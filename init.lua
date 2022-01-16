@@ -7,21 +7,21 @@ local proto = {}
 
 ---Link T2 to T1 via `__index`.
 ---@generic T1:table, T2:table
----@param t1 T1
+---@param self T1
 ---@param t2 T2
 ---@param name? string
 ---@return T1|T2 result
-function proto.link(t1, t2, name)
-  local _, mt = proto.set_name(t1, name)
+function proto:link(t2, name)
+  local _, mt = proto.set_name(self, name)
   mt.__index = t2
-  return t1
+  return self
 end
 
 ---Parents iterator.
 ---@param self table
 ---@param limit number
 ---@return fun(): table
-function proto.parents(self, limit)
+function proto:parents(limit)
   limit = limit or huge
   local counter = 0
   local function next_iter()
@@ -41,7 +41,7 @@ end
 ---@param self table
 ---@param limit number
 ---@return fun(): any, any, table
-function proto.slots(self, limit)
+function proto:slots(limit)
   limit = limit or huge
   local counter = 0
   local key, value
@@ -66,7 +66,7 @@ end
 ---Simple helper for getting __index.
 ---@param self table
 ---@return table?
-function proto.get_index(self)
+function proto:get_index()
   local mt = getmetatable(self)
   if mt then
     return mt.__index
@@ -79,7 +79,7 @@ end
 ---@param name string
 ---@return T
 ---@return table metatable
-function proto.set_name(self, name)
+function proto:set_name(name)
   local mt = getmetatable(self) or {}
   mt.__tostring = function()
     return name
@@ -88,4 +88,4 @@ function proto.set_name(self, name)
   return self, mt
 end
 
-return proto.set_name(proto, "PRÖTØ v0.2.1")
+return proto:set_name("PRÖTØ v0.2.1")
