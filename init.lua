@@ -17,6 +17,19 @@ function proto:link(t2, name)
   return self
 end
 
+---Create a copy of self
+---@generic T
+---@param self T
+---@return T
+function proto:copy()
+  local t = {}
+  for key, value in proto.slots(self) do
+    t[key] = value
+  end
+  proto.set_name(t, tostring(self))
+  return t
+end
+
 ---Parents iterator.
 ---@param self table
 ---@param limit number
