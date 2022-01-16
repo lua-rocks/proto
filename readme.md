@@ -84,11 +84,6 @@ We have only 4 simple but powerful tools at our disposal:
 For detailed API see [init.lua](init.lua),
 examples in [example.lua](example.lua).
 
-The last thing you should notice is that `proto.link(t, ...)`
-and `proto(t, ...)` are not functionally different, but if you are using
-language server such as `sumneko.lua`, then the longer variant is better
-for you, because this server is not smart enough (yet) to parse metatables.
-
 ## Recommended extensions for VSCodium
 
 + `sumneko.lua` - smart tips on all my functions and more
