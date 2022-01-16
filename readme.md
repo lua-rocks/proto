@@ -79,9 +79,9 @@ We have only 4 simple but powerful tools at our disposal:
 + `proto.link(t1, t2, name)`: simple inheritance (linking tables via `__index`)
 + `proto.parents(self, limit)`: iterator for all linked tables
 + `proto.slots(self, limit)`: iterator for all slots from self and linked tables
-+ `proto.index(self)`: simply get __index
++ `proto.index(self)`: simply get `__index`
 
-For detailed API see [proto.lua](proto.lua),
+For detailed API see [init.lua](init.lua),
 examples in [example.lua](example.lua).
 
 The last thing you should notice is that `proto.link(t, ...)`
