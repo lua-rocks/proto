@@ -92,7 +92,7 @@ end
 ---Simple helper for setting __tostring.
 ---@generic T: table
 ---@param self T
----@param name string
+---@param name? string
 ---@return T
 ---@return table metatable
 function proto:set_name(name)
@@ -101,8 +101,10 @@ function proto:set_name(name)
     mt = {}
     setmetatable(self, mt)
   end
-  mt.__tostring = function()
-    return name
+  if name then
+    mt.__tostring = function()
+      return name
+    end
   end
   return self, mt
 end
