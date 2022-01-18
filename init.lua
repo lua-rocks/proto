@@ -22,10 +22,12 @@ end
 ---@generic T
 ---@param self T
 ---@param t2 T
+---@param name? string
 ---@return T
-function proto:new(t2)
+function proto:new(t2, name)
+  name = name or ("new " .. tostring(t2))
   ---@diagnostic disable-next-line: undefined-field
-  return proto.link(self, t2, "new " .. tostring(t2)):init()
+  return proto.link(self, t2, name):init()
 end
 
 ---Create a copy of self
