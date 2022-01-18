@@ -21,6 +21,7 @@ end
 ---Table must have method `init`, which will be called without arguments
 ---@generic T
 ---@param self T
+---@param t2 T
 ---@return T
 function proto:new(t2)
   ---@diagnostic disable-next-line: undefined-field
