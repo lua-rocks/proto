@@ -6,7 +6,7 @@ local huge = math.huge
 local proto = {}
 
 ---Link T2 to T1 via `__index`.
----@generic T1:table, T2:table
+---@generic T1, T2
 ---@param self T1
 ---@param t2 T2
 ---@param name? string
@@ -19,19 +19,18 @@ end
 
 ---Simple constructor.
 ---Table must have method `init`, which will be called without arguments.
----@generic T:table
+---@generic T
 ---@param self T
 ---@param t2 T
 ---@param name? string
 ---@return T
 function proto:new(t2, name)
   name = name or ("new " .. tostring(t2))
-  ---@diagnostic disable-next-line: undefined-field
   return proto.link(self, t2, name):init()
 end
 
 ---Create a copy of self.
----@generic T:table
+---@generic T
 ---@param self T
 ---@return T
 function proto:copy()
@@ -103,7 +102,7 @@ function proto:get_index()
 end
 
 ---Simple helper for setting __tostring.
----@generic T: table
+---@generic T
 ---@param self T
 ---@param name? string
 ---@return T
