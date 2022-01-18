@@ -74,8 +74,7 @@ local another_o = proto.link({}, o):init(conf)
 There is one thing you should know, which can make your life much easier - you
 no need to use interface (table `conf` in example above) as constructor argument
 (`init(conf)`)! You can just use it as first argument in `proto.link`, so you
-will no need to write annoying code like `self.something = conf.something`, but
-only update it if it needs to be changed in initialization process.
+will no need to write annoying code like `self.something = conf.something`.
 
 Example:
 
