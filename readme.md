@@ -9,31 +9,31 @@ SEE [NEWS.MD](news.md)
 ## Why?
 
 It's no secret that there is a huge variety of different OOP libraries for Lua
-and I'm even the author of one of them, but why did I think about writing
-one more?
+and I'm even the author of one of them, but why did I think about writing one
+more?
 
 The fact is that no matter how lite and simple library is, it may somehow have
 its own rules that the object-table must follow, and most often such tables are
 modified (infected) with libraries, receiving various methods from them, without
 which the table can not be considered object at all.
 
-So I decided to write a library that treats absolutely any table as object.
-It does not matter where this table came from, how it was created or what is
-inside it. In fact, this library is just a set of auxiliary functions for
-working with any tables in OOP style.
+So I decided to write a library that treats absolutely any table as object. It
+does not matter where this table came from, how it was created or what is inside
+it. In fact, this library is just a set of auxiliary functions for working with
+any tables in OOP style.
 
 ## Installation
 
 `luarocks install proto`
 
-Or download/clone the lua file/repository into your project,
-To have smart tips in [VSCodium][2].
+Or download/clone the lua file/repository into your project, To have smart tips
+in [VSCodium][2].
 
 ## General principles and terminology
 
 Note that PRÖTØ uses a programming paradigm called [prototype programming][1].
-The main difference between prototype-based and class-based OOP is that we
-have no concept of Class.
+The main difference between prototype-based and class-based OOP is that we have
+no concept of Class.
 
 It's very simple: instead of creating classes and their instances, we create an
 ordinary table and specify its "relatives" using this library, which it will
@@ -71,28 +71,51 @@ o:init(conf)
 local another_o = proto.link({}, o):init(conf)
 ```
 
+There is one thing you should know, which can make your life much easier - you
+no need to use interface (table `conf` it example above) as constructor argument
+(`init(conf)`)! You can just use it as first argument in `proto.link`, so you
+will no need to write annoying code like `self.something = conf.something`, but
+only update it if it needs to be changed in initialization process.
+
+Example:
+
+```lua
+function vector:init()
+  --- Deprecated:
+  -- self[1] = conf[1]
+  -- self[2] = conf[2]
+
+  -- Update only if needed
+  if type(self[1]) == "string" then self[1] == tonumber(self[1]) end
+
+  return self
+end
+
+local v = proto.link({"640", 480}, vector):init()
+```
+
 ## Arsenal
 
 We have only 6 simple but powerful tools at our disposal:
 
-+ Main:
-  + `proto.link(self, t2, name)`: inheritance (linking tables via `__index`)
-  + `proto.copy(self)`: sometimes cloning copies is faster than building
-+ Iterators:
-  + `proto.parents(self, limit)`: for all linked tables
-  + `proto.slots(self, limit)`: for all slots from self and linked tables
-+ Helpers:
-  + `proto.get_index(self)`: get `__index` metaslot
-  + `proto.set_name(self, name)`: set `__tostring` metaslot
+- Main:
+  - `proto.link(self, t2, name)`: inheritance (linking tables via `__index`)
+  - `proto.copy(self)`: sometimes cloning copies is faster than building
+- Iterators:
+  - `proto.parents(self, limit)`: for all linked tables
+  - `proto.slots(self, limit)`: for all slots from self and linked tables
+- Helpers:
+  - `proto.get_index(self)`: get `__index` metaslot
+  - `proto.set_name(self, name)`: set `__tostring` metaslot
 
-For detailed API see [init.lua](init.lua),
-examples in [example.lua](example.lua).
+For detailed API see [init.lua](init.lua), examples in
+[example.lua](example.lua).
 
 ## Recommended extensions for VSCodium
 
-+ `sumneko.lua` - smart tips on all my functions and more
-+ `rog2.luacheck` - linter
-+ `tomblind.local-lua-debugger-vscode` - debugger
+- `sumneko.lua` - smart tips on all my functions and more
+- `rog2.luacheck` - linter
+- `tomblind.local-lua-debugger-vscode` - debugger
 
 ## Caveats
 
