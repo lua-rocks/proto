@@ -3,6 +3,7 @@ local huge = math.huge
 ---## `PRÖTØ`
 ---### The simplest implementation of a prototype ÖØP in Lua.
 ---@class lib.proto
+---@field auto_init boolean
 local proto = {}
 
 ---Link T2 to T1 via `__index`.
@@ -14,6 +15,9 @@ local proto = {}
 function proto:link(t2, name)
   local _, mt = proto.set_name(self, name)
   mt.__index = t2
+  if proto.auto_init and self.init then
+    return self:init()
+  end
   return self
 end
 

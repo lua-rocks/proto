@@ -94,6 +94,15 @@ end
 local v = proto.link({"640", 480}, vector):init()
 ```
 
+I also added the `auto_init` option (off by default), which will automatically
+call table's `init` method right after linking **without arguments**.
+
+```lua
+proto.auto_init = true
+
+local v = proto.link({"640", 480}, vector)
+```
+
 ## Arsenal
 
 We have only 6 simple but powerful tools at our disposal:
