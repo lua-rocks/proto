@@ -17,8 +17,8 @@ function proto:link(t2, name)
   return self
 end
 
----Simple constructor
----Table must have method `init`, which will be called without arguments
+---Simple constructor.
+---Table must have method `init`, which will be called without arguments.
 ---@generic T:table
 ---@param self T
 ---@param t2 T
@@ -30,7 +30,7 @@ function proto:new(t2, name)
   return proto.link(self, t2, name):init()
 end
 
----Create a copy of self
+---Create a copy of self.
 ---@generic T:table
 ---@param self T
 ---@return T
