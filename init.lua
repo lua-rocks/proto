@@ -19,7 +19,7 @@ end
 
 ---Simple constructor
 ---Table must have method `init`, which will be called without arguments
----@generic T
+---@generic T:table
 ---@param self T
 ---@param t2 T
 ---@param name? string
@@ -31,7 +31,7 @@ function proto:new(t2, name)
 end
 
 ---Create a copy of self
----@generic T
+---@generic T:table
 ---@param self T
 ---@return T
 function proto:copy()
