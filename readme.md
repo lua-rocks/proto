@@ -94,18 +94,16 @@ end
 local v = proto.link({"640", 480}, vector):init()
 ```
 
-I also added the `auto_init` option (off by default), which will automatically
-call table's `init` method right after linking **without arguments**.
+In this case you can use `proto.new`, which will automatically call table's
+`init` method right after linking **without arguments**.
 
 ```lua
-proto.auto_init = true
-
-local v = proto.link({"640", 480}, vector)
+local v = proto.new({"640", 480}, vector)
 ```
 
 ## Arsenal
 
-We have only 6 simple but powerful tools at our disposal:
+We have only 7 simple but powerful tools at our disposal:
 
 - Main:
   - `proto.link(self, t2, name)`: inheritance (linking tables via `__index`)
@@ -116,6 +114,7 @@ We have only 6 simple but powerful tools at our disposal:
 - Helpers:
   - `proto.get_index(self)`: get `__index` metaslot
   - `proto.set_name(self, name)`: set `__tostring` metaslot
+  - `proto.new`: constructor for tables with `init` method
 
 For detailed API see [init.lua](init.lua), examples in
 [example.lua](example.lua).
