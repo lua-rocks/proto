@@ -25,7 +25,7 @@ end
 ---@return T
 function proto:new(t2)
   ---@diagnostic disable-next-line: undefined-field
-  return proto.link(self, t2):init()
+  return proto.link(self, t2, "new " .. tostring(t2)):init()
 end
 
 ---Create a copy of self
