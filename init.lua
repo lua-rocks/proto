@@ -17,7 +17,7 @@ function proto:link(t2, name)
   return self
 end
 
----Simple constructor.
+---Constructor.
 ---Table must have method `init`, which will be called without arguments.
 ---@generic T
 ---@param self T
@@ -91,7 +91,7 @@ function proto:slots(limit)
   return next_iter
 end
 
----Simple helper for getting __index.
+---Helper for getting __index.
 ---@param self table
 ---@return table?
 function proto:get_index()
@@ -101,7 +101,7 @@ function proto:get_index()
   end
 end
 
----Simple helper for setting __tostring.
+---Helper for setting __tostring.
 ---@generic T
 ---@param self T
 ---@param name? string
