@@ -100,7 +100,7 @@ local v = proto.link({"640", 480}, vector):init()
 ```
 
 In this case you can use `proto.new`, which will automatically call table's
-`init` method right after linking **without arguments**.
+`init` method right after linking (with one argument: self).
 
 ```lua
 local v = proto.new({"640", 480}, vector)
