@@ -83,6 +83,11 @@ function vector:init()
   --- Deprecated:
   -- self[1] = conf[1]
   -- self[2] = conf[2]
+  -- self[...] = conf[...]
+
+  -- Initializing proto-object this way is also easier, because we don't need
+  -- to check how many arguments it accepts. The argument is always one: self.
+  proto.get_index(self).init(self)
 
   -- `self` is already `conf`!
   -- You only have to correct it (if needed):
