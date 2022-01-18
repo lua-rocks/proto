@@ -85,7 +85,8 @@ function vector:init()
   -- self[1] = conf[1]
   -- self[2] = conf[2]
 
-  -- Update only if needed
+  -- `self` is already `conf`!
+  -- You only have to correct it (if needed):
   if type(self[1]) == "string" then self[1] == tonumber(self[1]) end
 
   return self
