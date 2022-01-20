@@ -2,9 +2,7 @@
 
 ## 🎉 GOOD NEWS EVERYONE 🎉
 
-Metatables are not supported anymore! 😆
-
-SEE [NEWS.MD](news.md)
+SEE [CHANGELOG](changelog.md).
 
 ## Why?
 
