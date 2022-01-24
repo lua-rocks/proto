@@ -2,7 +2,7 @@ local huge = math.huge
 
 ---## `PRÖTØ`
 ---### The simplest implementation of a prototype ÖØP in Lua.
----@class lib.proto
+---@class lib.table.proto
 local proto = {}
 
 ---Link T2 to T1 via `__index`.

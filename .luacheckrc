@@ -2,6 +2,6 @@
 
 new_globals = { "_" }
 
-exclude_files = { "**/.**" }
+exclude_files = { "**/.**", "**.md" }
 
 max_line_length = 80
