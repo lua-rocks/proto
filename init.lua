@@ -7,58 +7,58 @@ local proto = {}
 
 ---Link T2 to T1 via `__index`.
 ---@generic T1, T2
----@param self T1
+---@param t1 T1
 ---@param t2 T2
 ---@param name? string
 ---@return T1|T2 result
-function proto:link(t2, name)
-  local _, mt = proto.set_name(self, name)
+function proto.link(t1, t2, name)
+  local _, mt = proto.set_name(t1, name)
   mt.__index = t2
-  return self
+  return t1
 end
 
 ---Constructor.
 ---Table must have method `init`, which will be called without arguments.
 ---@generic T
----@param self T
+---@param t1 T
 ---@param t2 T
 ---@param name? string
 ---@return T
-function proto:new(t2, name)
+function proto.new(t1, t2, name)
   name = name or ("new " .. tostring(t2))
-  return proto.link(self, t2, name):init()
+  return proto.link(t1, t2, name):init()
 end
 
 ---Create a copy of self.
 ---@generic T
----@param self T
+---@param t T
 ---@return T
-function proto:copy()
-  local t = {}
-  for key, value in proto.slots(self) do
-    t[key] = value
+function proto.copy(t)
+  local new = {}
+  for key, value in proto.slots(t) do
+    new[key] = value
   end
-  local mt = getmetatable(self)
+  local mt = getmetatable(t)
   if mt then
-    setmetatable(t, { __tostring = mt.__tostring })
+    setmetatable(new, { __tostring = mt.__tostring })
   end
-  return t
+  return new
 end
 
 ---Parents iterator.
----@param self table
+---@param t table
 ---@param limit number
 ---@return fun(): table
-function proto:parents(limit)
+function proto.parents(t, limit)
   limit = limit or huge
   local counter = 0
   local function next_iter()
     if counter < limit then
-      local mt = getmetatable(self)
+      local mt = getmetatable(t)
       if type(mt) == "table" and type(mt.__index) == "table" then
-        self = mt.__index
+        t = mt.__index
         counter = counter + 1
-        return self
+        return t
       end
     end
   end
@@ -66,22 +66,22 @@ function proto:parents(limit)
 end
 
 ---Slots iterator.
----@param self table
+---@param t table
 ---@param limit number
 ---@return fun(): any, any, table
-function proto:slots(limit)
+function proto.slots(t, limit)
   limit = limit or huge
   local counter = 0
   local key, value
   local function next_iter()
     if counter < limit then
-      key, value = next(self, key)
+      key, value = next(t, key)
       if key then
-        return key, value, self
+        return key, value, t
       else
-        local mt = getmetatable(self)
+        local mt = getmetatable(t)
         if type(mt) == "table" and type(mt.__index) == "table" then
-          self = mt.__index
+          t = mt.__index
           counter = counter + 1
           return next_iter()
         end
@@ -92,10 +92,10 @@ function proto:slots(limit)
 end
 
 ---Helper for getting __index.
----@param self table
+---@param t table
 ---@return table?
-function proto:get_index()
-  local mt = getmetatable(self)
+function proto.get_index(t)
+  local mt = getmetatable(t)
   if mt then
     return mt.__index
   end
@@ -103,22 +103,22 @@ end
 
 ---Helper for setting __tostring.
 ---@generic T
----@param self T
+---@param t T
 ---@param name? string
 ---@return T
 ---@return table metatable
-function proto:set_name(name)
-  local mt = getmetatable(self)
+function proto.set_name(t, name)
+  local mt = getmetatable(t)
   if not mt then
     mt = {}
-    setmetatable(self, mt)
+    setmetatable(t, mt)
   end
   if name then
     mt.__tostring = function()
       return name
     end
   end
-  return self, mt
+  return t, mt
 end
 
 return proto:set_name("PRÖTØ v0.2.6")

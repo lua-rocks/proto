@@ -110,15 +110,15 @@ local v = proto.new({"640", 480}, vector)
 We have only 7 simple but powerful tools at our disposal:
 
 - Main:
-  - `proto.link(self, t2, name?)`: inheritance (linking tables via `__index`)
-  - `proto.copy(self)`: sometimes cloning copies is faster than building
+  - `proto.link(t1, t2, name?)`: inheritance (linking tables via `__index`)
+  - `proto.copy(t)`: sometimes cloning copies is faster than building
 - Iterators:
-  - `proto.parents(self, limit?)`: for all linked tables
-  - `proto.slots(self, limit?)`: for all slots from self and linked tables
+  - `proto.parents(t, limit?)`: for all linked tables
+  - `proto.slots(t, limit?)`: for all slots from `t` and linked tables
 - Helpers:
-  - `proto.get_index(self)`: get `__index` metaslot
-  - `proto.set_name(self, name?)`: set `__tostring` metaslot
-  - `proto.new(self, name?)`: constructor for tables with `init` method
+  - `proto.get_index(t)`: get `__index` metaslot
+  - `proto.set_name(t, name?)`: set `__tostring` metaslot
+  - `proto.new(t, name?)`: constructor for tables with `init` method
 
 For detailed API see [init.lua](init.lua), examples in
 [example.lua](example.lua).
