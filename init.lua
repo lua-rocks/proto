@@ -125,4 +125,4 @@ function proto.set_name(t, name)
   return t, mt
 end
 
-return proto:set_name("PRÖTØ v0.2.6")
+return proto:set_name("PRÖTØ v0.3.0")
