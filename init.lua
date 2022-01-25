@@ -18,10 +18,15 @@ function proto.link(t1, t2, name)
 end
 
 ---Constructor.
----Table must have method `init`, which will be called without arguments.
+---If table have method `init`, it will be `:called()`.
 ---
 ---```lua
----local size = proto.new(Vector, {640, 480})
+---local function Vector:init()
+---  if type(self[1]) == "string" then self[1] == tonumber(self[1]) end
+---  return self
+---end
+---
+---local size = proto.new(Vector, {"640", 480})
 ---```
 ---@generic T
 ---@param super T
@@ -30,7 +35,11 @@ end
 ---@return T
 function proto.new(super, init, name)
   name = name or ("new " .. tostring(super))
-  return proto.link(init, super, name):init()
+  local result = proto.link(init, super, name)
+  if result.init then
+    return result:init()
+  end
+  return result
 end
 
 ---Create a copy of self.
@@ -125,4 +134,4 @@ function proto.set_name(t, name)
   return t, mt
 end
 
-return proto:set_name("PRÖTØ v0.3.0")
+return proto:set_name("PRÖTØ v0.3.1")
