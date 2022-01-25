@@ -19,14 +19,18 @@ end
 
 ---Constructor.
 ---Table must have method `init`, which will be called without arguments.
+---
+---```lua
+---local size = proto.new(Vector, {640, 480})
+---```
 ---@generic T
----@param t1 T
----@param t2 T
+---@param super T
+---@param init T
 ---@param name? string
 ---@return T
-function proto.new(t1, t2, name)
-  name = name or ("new " .. tostring(t2))
-  return proto.link(t1, t2, name):init()
+function proto.new(super, init, name)
+  name = name or ("new " .. tostring(super))
+  return proto.link(init, super, name):init()
 end
 
 ---Create a copy of self.

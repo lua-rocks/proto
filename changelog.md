@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.0 - Constructor is ready to use
+
+```lua
+local size = proto.new(Vector, {640, 480})
+```
+
 ## 0.2.0 - Remove metatables inheritance
 
 All functionality relating to meta-table inheritance was unnecessary bloat and I

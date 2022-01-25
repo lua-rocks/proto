@@ -102,7 +102,7 @@ In this case you can use `proto.new`, which will automatically call table's
 `init` method right after linking (with one argument: self).
 
 ```lua
-local v = proto.new({"640", 480}, vector)
+local v = proto.new(vector, {"640", 480})
 ```
 
 ## Arsenal
@@ -118,7 +118,7 @@ We have only 7 simple but powerful tools at our disposal:
 - Helpers:
   - `proto.get_index(t)`: get `__index` metaslot
   - `proto.set_name(t, name?)`: set `__tostring` metaslot
-  - `proto.new(t, name?)`: constructor for tables with `init` method
+  - `proto.new(super, init, name?)`: constructor for tables with `init` method
 
 For detailed API see [init.lua](init.lua), examples in
 [example.lua](example.lua).
