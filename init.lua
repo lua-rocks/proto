@@ -30,12 +30,12 @@ end
 ---```
 ---@generic T
 ---@param super T
----@param init T
+---@param init? T
 ---@param name? string
 ---@return T
 function proto.new(super, init, name)
   name = name or ("new " .. tostring(super))
-  local result = proto.link(init, super, name)
+  local result = proto.link(init or {}, super, name)
   if result.init then
     return result:init()
   end
@@ -134,4 +134,4 @@ function proto.set_name(t, name)
   return t, mt
 end
 
-return proto:set_name("PRÖTØ v0.3.1")
+return proto:set_name("PRÖTØ v0.3.2")
