@@ -78,7 +78,7 @@ also you will no need to describe interfaces. Object can be interface to itself.
 Example:
 
 ```lua
-function vector:init()
+function Vector:init()
   --- Deprecated:
   -- self[1] = conf[1]
   -- self[2] = conf[2]
@@ -95,15 +95,18 @@ function vector:init()
   return self
 end
 
-local v = proto.link({"640", 480}, vector):init()
+local v = proto.link({"640", 480}, Vector):init()
 ```
 
 In this case you can use `proto.new`, which will automatically call table's
 `init` method right after linking (with one argument: self).
 
 ```lua
-local v = proto.new(vector, {"640", 480})
+local v = proto.new(Vector, {"640", 480})
 ```
+
+I advise you to capitalize variables **only** when they are used as prototypes,
+like `Vector` in examples above.
 
 ## Arsenal
 
